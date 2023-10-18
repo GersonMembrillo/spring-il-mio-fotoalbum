@@ -1,6 +1,7 @@
 package org.java.app;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,9 +12,9 @@ public class FotoServ {
 	@Autowired
 	private FotoRepo fotoRepo;
 	
-	public void save(Foto foto) {
+	public Foto save(Foto foto) {
 		
-		fotoRepo.save(foto);
+		return fotoRepo.save(foto);
 	}
 	public List<Foto> findAll() {
 		
@@ -24,9 +25,9 @@ public class FotoServ {
 
 		return fotoRepo.findByTitleContaining(title);
 	}
-	public Foto findById(int id) {
+	public Optional<Foto> findById(int id) {
 		
-		return fotoRepo.findById(id).get();
+		return fotoRepo.findById(id);
 	}
 	
 public void deleteFoto(Foto foto) {

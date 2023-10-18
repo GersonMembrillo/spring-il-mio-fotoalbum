@@ -17,10 +17,11 @@ public class AuthConfig {
 		throws Exception {
 			 
 		http.csrf().disable().authorizeHttpRequests()
-		        .requestMatchers("/login").permitAll()
-		        .requestMatchers("/").hasAnyAuthority("USER", "ADMIN")
-		        .requestMatchers(new RegexRequestMatcher("/[0-9]+", null)).hasAnyAuthority("USER", "ADMIN")
-		        .requestMatchers("/**").hasAuthority("ADMIN")
+//				.requestMatchers("/login*").permitAll()
+		        .requestMatchers("/**").permitAll()
+//		        .requestMatchers("/").hasAnyAuthority("USER", "ADMIN")
+//		        .requestMatchers(new RegexRequestMatcher("/[0-9]+", null)).hasAnyAuthority("USER", "ADMIN")
+//		        .requestMatchers("/**").hasAuthority("ADMIN")
 		        .and().formLogin()
 		        .and().logout();
 			

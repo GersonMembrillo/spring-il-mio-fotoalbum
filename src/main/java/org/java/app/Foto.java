@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.java.app.api.FotoDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,6 +37,7 @@ public class Foto {
 //	private String category;
 	
 	@ManyToMany
+	@JsonBackReference
 	private List<Category> categories;
 	
 	public Foto() { }
@@ -47,6 +50,11 @@ public class Foto {
 //		setCategory(category);
 		setCategories(Arrays.asList(categories));
 	}
+	public Foto(FotoDTO fotoDto) {
+
+		fillFromDto(fotoDto);
+
+    }
 	
 	public int getId() {
 		return id;
@@ -98,6 +106,12 @@ public class Foto {
 		getCategories().remove(category);
 	}
 	
+	public void fillFromDto(FotoDTO fotoDto) {
+
+		setTitle(fotoDto.getTitle());
+		setDescription(fotoDto.getDescription());
+	}
+	
 	@Override
 	public String toString() {
 		
@@ -106,6 +120,11 @@ public class Foto {
 				+ getVisibility(); 
 //				+ getCategory();
 				
+	}
+	
+	public Foto get() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
