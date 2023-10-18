@@ -8,10 +8,10 @@
 </head>
 <body>
 
-	<th:block th:replace="nav"/>
+	<th:block th:replace="~{nav}"/>
 	<div class="d-flex justify-content-center my-4">
 
-  <body th:object="${foto}">
+  <body th:object="${foto}" sec:authorize="hasAnyAuthority('ADMIN')">
   		<div class="card col-6">
    			 <img th:src="*{photo}" class="card-img-top img-fluid" alt="img" width="100%" height="300px" border="1px solid black">
     		 <div class="card-body">

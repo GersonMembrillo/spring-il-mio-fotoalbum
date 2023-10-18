@@ -10,27 +10,34 @@
 
 <body>
 
-	<th:block th:replace="nav" />
+	<th:block th:replace="~{nav}" />
 	<div class="text-center">
 		<h1 class="m-4">Elenco foto</h1>
-		<h1 th:if="${fotos.size() < 1}">Foto in manutenzione, riprova più tardi :(</h1>
+		
+		<form>
+			<label for="search"></label>
+			<input type="text" name="search" th:value="${searchTitle}" placeholder="Cerca foto per nome!" />
+			<input class="btn btn-primary" type="submit" value="Cerca" />
+		</form>
+		
+		<h1 th:if="${fotos.size() < 1}">Foto visibili solo all'admin(</h1>
 
 		<div class="d-flex justify-content-center my-3">
-			<ul class="list-unstyled list-group col-6" th:if="${fotos.size() > 0}">
+			<!-- ho deciso di metterlo in questo modo così un non admin non può vedere un tubero -->
+			<ul class="list-unstyled list-group col-6" th:if="${fotos.size() > 0}" sec:authorize="hasAnyAuthority('ADMIN')">
 				<li class="list-group-item" th:each="foto : ${fotos}" th:object="${foto}">
 					<a th:href="@{/{id}(id=*{id})}">
 						[[*{title}]]
 					</a>
 				</li>
+				<li>
+					<a th:href="@{/create}" class="btn btn-primary my-3">Aggiungi foto</a>
+				</li>
 			</ul>
 		</div>
-
-		<hr>
-
-		<a th:href="@{/create}" class="btn btn-primary mb-3">Aggiungi foto</a>
 	</div>
-
-
+	<hr>
+	<th:block th:insert="~{login.html :: login}"></th:block>
 
 	<script th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js}"></script>
 </body>

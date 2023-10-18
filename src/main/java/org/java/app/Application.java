@@ -4,6 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import org.java.app.user.Role;
+import org.java.app.user.User;
+import org.java.app.user.RoleServ;
+import org.java.app.user.UserServ;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
@@ -17,6 +23,12 @@ public class Application implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
+	
+	@Autowired
+	private RoleServ roleServ;
+
+	@Autowired
+	private UserServ userServ;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -78,6 +90,21 @@ public class Application implements CommandLineRunner {
   		fotoServ.save(foto3);
   		fotoServ.save(foto4);
   		fotoServ.save(foto5);
+  		
+  		Role userRole = new Role("USER");
+		Role adminRole = new Role("ADMIN");
+		
+		roleServ.save(userRole);
+		roleServ.save(adminRole);
+		
+		final String pwsUser = new BCryptPasswordEncoder().encode("pws");
+		final String pwsAdmin = new BCryptPasswordEncoder().encode("pws");
+		
+		User ciccioUser = new User("ciccioUser", pwsUser, userRole);
+		User ciccioAdmin = new User("ciccioAdmin", pwsAdmin, adminRole);
+		
+		userServ.save(ciccioUser);
+		userServ.save(ciccioAdmin);
   		
   		System.out.println("Insert OK");
 	}
