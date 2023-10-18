@@ -14,7 +14,8 @@
 
 	<div class="text-center">
 
-		<h1 class="m-4">Create new pizza!</h1>
+		<h1 class="m-4" th:if="${foto.id < 1}">Aggiungi una foto</h1>
+		<h1 class="m-4" th:if="${foto.id > 0}">Modifica la tua foto</h1>
 		<form th:object="${foto}" method="POST">
 
 
@@ -48,6 +49,7 @@
 				</ul>
 				<br />
 			</div>
+			<!--
 			<label for="category" class="form-label">Categoria</label>
 			<input type="text" name="category" class="form-control" th:value="*{category}">
 			<div class="form-text">Aggiungi la categoria della foto</div>
@@ -57,7 +59,7 @@
 					<li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
 				</ul>
 				<br>
-			</div>
+			</div> -->
 			<label for="visibility" class="form-label">Visibilità</label>
 			<div class="form-text">Decidi se la foto è visibile o no</div>
 			<input type="checkbox" name="visibility" th:checked="${foto.visibility}" class="mb-3">
@@ -68,7 +70,17 @@
 				</ul>
 				<br />
 			</div>
-			<input type="submit" value="CREATE">
+			<label for="category" class="form-label fs-5">Categorie</label>
+			<div class="d-flex justify-content-between" style="width: 250px; margin: 0 auto;"
+				th:each="category : ${categories}" th:object="${category}">
+				
+				<input type="checkbox" th:id="${'category-' + category.id}" th:value="*{id}"
+					th:field="${foto.categories}">
+				<label th:for="${'category-' + category.id}">[[*{name}]]</label>
+						
+			</div>
+			
+			<input class="btn btn-success m-3" type="submit" th:value="${foto.id > 0 ? 'UPDATE' : 'CREATE'}" />
 		</form>
 
 	</div>

@@ -17,14 +17,21 @@
     		 <div class="card-body">
      			  <h5 class="card-title">[[*{title}]]</h5>
      			  <p class="card-text">[[*{description}]]</p>
-     			  <br>
+     			  <hr>
+     			  <h5>Categorie</h5>
+		<ul class="list-unstyled">
+			<li th:each="category : *{categories}" th:object="${category}">
+				[[*{name}]]
+			</li>
+		</ul>
+     			  <hr>
      			  <div class="text-center">
-     			 <a class="btn btn-primary" th:href="@{edit/{id}(id=*{id})}">Modifica</a>
+     			 <a class="btn btn-primary badge" th:href="@{edit/{id}(id=*{id})}">Modifica</a>
 				<form 
 					style="display: inline;" 
 					th:action="@{delete/{id}(id=*{id})}"
 					method="POST">
-						<button type="submit" class="btn btn-danger">Elimina</button>
+						<button type="submit" class="btn btn-danger badge">Elimina</button>
 				</form>
 				</div>
     		 </div>

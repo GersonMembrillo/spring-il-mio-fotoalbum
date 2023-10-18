@@ -1,5 +1,8 @@
 package org.java.app;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.hibernate.validator.constraints.Length;
 
 import jakarta.persistence.Column;
@@ -7,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Foto {
@@ -27,17 +31,21 @@ public class Foto {
 	
 	private boolean visibility;
 	
-	@Length(max = 255)
-	private String category;
+//	@Length(max = 255)
+//	private String category;
+	
+	@ManyToMany
+	private List<Category> categories;
 	
 	public Foto() { }
-	public Foto(String title, String description, String photo, boolean visibility, String category) {
+	public Foto(String title, String description, String photo, boolean visibility, Category...categories) {
 		
 		setTitle(title);
 		setDescription(description);
 		setPhoto(photo);
 		setVisibility(visibility);
-		setCategory(category);
+//		setCategory(category);
+		setCategories(Arrays.asList(categories));
 	}
 	
 	public int getId() {
@@ -70,11 +78,24 @@ public class Foto {
 	public void setVisibility(boolean visibility) {
 		this.visibility = visibility;
 	}
-	public String getCategory() {
-		return category;
+//	public String getCategory() {
+//		return category;
+//	}
+//	public void setCategory(String category) {
+//		this.category = category;
+//	}
+	
+	public List<Category> getCategories() {
+		return categories;
 	}
-	public void setCategory(String category) {
-		this.category = category;
+	
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
+	
+	public void deleteCategory(Category category) {
+		
+		getCategories().remove(category);
 	}
 	
 	@Override
@@ -82,8 +103,9 @@ public class Foto {
 		
 		return "["+ getId() + "] " + getTitle() + ": + getDescription()"  + "\n"			
 				+ getPhoto() + "\n" 
-				+ getVisibility() + "\n" 
-				+ getCategory();
+				+ getVisibility(); 
+//				+ getCategory();
 				
 	}
+
 }

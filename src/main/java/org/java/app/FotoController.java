@@ -19,6 +19,9 @@ public class FotoController {
 
 	@Autowired
 	private FotoServ fotoServ;
+	
+	@Autowired 
+	private CategoryServ categoryServ;
 
 	@GetMapping
 	public String getIndex(@RequestParam(required = false, name = "search") String searchTitle, Model model) {
@@ -43,8 +46,11 @@ public class FotoController {
 
 	@GetMapping("/create")
 	public String getCreateFormt(Model model) {
+		
+		List<Category> categories = categoryServ.findAll();
 
 		model.addAttribute("foto", new Foto());
+		model.addAttribute("categories", categories);
 
 		return "foto-create";
 	}
@@ -61,9 +67,12 @@ public class FotoController {
 			
 	@GetMapping("/edit/{id}")
 	public String getEditForm(@PathVariable int id, Model model) {
+		
+		List<Category> categories = categoryServ.findAll();
 
 		Foto foto = fotoServ.findById(id);
 		model.addAttribute("foto", foto);
+		model.addAttribute("categories", categories);
 
 		return "foto-create";
 	}
