@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" />
+	<title>Insert title here</title>
+</head>
+
+<body>
+
+	<th:block th:replace="~{nav}" />
+
+	<div class="text-center">
+
+		<h1 class="m-4">Create new pizza!</h1>
+		<form th:object="${foto}" method="POST">
+
+
+			<label for="title" class="form-label">Nome</label>
+			<input type="text" class="form-control" name="title" th:value="*{title}">
+			<div class="form-text">Aggiungi il titolo della foto</div>
+			<br />
+			<div th:if="${#fields.hasErrors('title')}">
+				<ul class="list-unstyled text-danger">
+					<li th:each="err : ${#fields.errors('title')}" th:text="${err}"></li>
+				</ul>
+				<br />
+			</div>
+			<label for="description" class="form-label">Descrizione</label>
+			<input type="text" name="description" class="form-control" th:value="*{description}">
+			<div class="form-text">Aggiungi la descrizione della foto</div>
+			<br />
+			<div th:if="${#fields.hasErrors('description')}">
+				<ul class="list-unstyled text-danger">
+					<li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+				</ul>
+				<br />
+			</div>
+			<label for="photo" class="form-label">Foto</label>
+			<input type="text" class="form-control" name="photo" th:value="*{photo}">
+			<div class="form-text">Aggiungi un url con la foto della pizza</div>
+			<br />
+			<div th:if="${#fields.hasErrors('photo')}">
+				<ul class="list-unstyled text-danger">
+					<li th:each="err : ${#fields.errors('photo')}" th:text="${err}"></li>
+				</ul>
+				<br />
+			</div>
+			<label for="category" class="form-label">Categoria</label>
+			<input type="text" name="category" class="form-control" th:value="*{category}">
+			<div class="form-text">Aggiungi la categoria della foto</div>
+			<br />
+			<div th:if="${#fields.hasErrors('description')}">
+				<ul class="list-unstyled text-danger">
+					<li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+				</ul>
+				<br>
+			</div>
+			<label for="visibility" class="form-label">Visibilità</label>
+			<div class="form-text">Decidi se la foto è visibile o no</div>
+			<input type="checkbox" name="visibility" th:checked="${foto.visibility}" class="mb-3">
+			<br />
+			<div th:if="${#fields.hasErrors('visibility')}">
+				<ul class="list-unstyled text-danger">
+					<li th:each="err : ${#fields.errors('visibility')}" th:text="${err}"></li>
+				</ul>
+				<br />
+			</div>
+			<input type="submit" value="CREATE">
+		</form>
+
+	</div>
+
+	<script th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+<style>
+	.form-control {
+		width: 50%;
+		margin: 0 auto;
+	}
+</style>
+
+</html>
