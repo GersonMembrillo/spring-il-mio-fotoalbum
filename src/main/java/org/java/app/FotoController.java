@@ -39,7 +39,7 @@ public class FotoController {
 
 	@GetMapping("/{id}")
 	public String getShow(@PathVariable Integer id, Model model) {
-		Foto foto = fotoServ.findById(id).get();;
+		Foto foto = fotoServ.findById(id).get();
 		model.addAttribute("foto", foto);
 		return "foto-show";
 	}
@@ -70,7 +70,7 @@ public class FotoController {
 		
 		List<Category> categories = categoryServ.findAll();
 
-		Foto foto = fotoServ.findById(id).get();;
+		Foto foto = fotoServ.findById(id).get();
 		model.addAttribute("foto", foto);
 		model.addAttribute("categories", categories);
 

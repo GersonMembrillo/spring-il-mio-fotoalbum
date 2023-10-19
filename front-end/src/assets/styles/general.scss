@@ -1,0 +1,18 @@
+@use './partials/variables' as *;
+@use './partials/mixins' as *;
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+$fa-font-path: '../webfonts';
+@import '@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '@fortawesome/fontawesome-free/scss/solid.scss';
+@import '@fortawesome/fontawesome-free/scss/regular.scss';
+
+
+@import 'bootstrap/scss/bootstrap';
+
+body {
+  font-family: 'Roboto', 'sans-serif';
+  background-color: rgb(85, 85, 85);
+  color: white;
+}

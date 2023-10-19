@@ -2,7 +2,6 @@ package org.java.app;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,7 +17,6 @@ public class Category {
 	private int id;
 	
 	@ManyToMany(mappedBy = "categories")
-	@JsonBackReference
 	private List<Foto> fotos;
 	
 	@Column(nullable = false)

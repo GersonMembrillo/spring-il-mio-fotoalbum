@@ -2,6 +2,7 @@ package org.java.app.api;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.java.app.Foto;
 import org.java.app.FotoServ;
@@ -29,7 +30,7 @@ public class FotoRestController {
 	private FotoServ fotoServ;
 
 	@GetMapping
-	public ResponseEntity<List<Foto>> getFoto(
+	public ResponseEntity<List<FotoDTO>> getFoto(
 			@RequestParam(required = false, name = "q") String query
 		) {
 
@@ -40,7 +41,14 @@ public class FotoRestController {
 		else 
 			fotos = fotoServ.findByTitle(query);
 
-		return new ResponseEntity<>(fotos, HttpStatus.OK);
+		// Nuovo codice
+		List<FotoDTO> fotoDTOs = fotos.stream()
+				.map(foto -> new FotoDTO(foto.getId(), foto.getTitle(), foto.getDescription(), foto.getPhoto(), foto.getVisibility(), foto.getCategories().stream()
+						.map(c -> new CategoryDTO(c.getName()))
+						.collect(Collectors.toList())))
+				.collect(Collectors.toList());
+
+		return new ResponseEntity<>(fotoDTOs, HttpStatus.OK);
 	}
 
 	@GetMapping("{id}")

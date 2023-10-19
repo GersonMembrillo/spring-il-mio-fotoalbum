@@ -33,9 +33,6 @@ public class Foto {
 	
 	private boolean visibility;
 	
-//	@Length(max = 255)
-//	private String category;
-	
 	@ManyToMany
 	@JsonBackReference
 	private List<Category> categories;
@@ -47,7 +44,6 @@ public class Foto {
 		setDescription(description);
 		setPhoto(photo);
 		setVisibility(visibility);
-//		setCategory(category);
 		setCategories(Arrays.asList(categories));
 	}
 	public Foto(FotoDTO fotoDto) {
@@ -86,12 +82,6 @@ public class Foto {
 	public void setVisibility(boolean visibility) {
 		this.visibility = visibility;
 	}
-//	public String getCategory() {
-//		return category;
-//	}
-//	public void setCategory(String category) {
-//		this.category = category;
-//	}
 	
 	public List<Category> getCategories() {
 		return categories;
@@ -117,8 +107,8 @@ public class Foto {
 		
 		return "["+ getId() + "] " + getTitle() + ": + getDescription()"  + "\n"			
 				+ getPhoto() + "\n" 
-				+ getVisibility(); 
-//				+ getCategory();
+				+ getVisibility() + "\n" 
+				+ getCategories(); 
 				
 	}
 	

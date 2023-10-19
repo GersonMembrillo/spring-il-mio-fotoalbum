@@ -19,14 +19,14 @@ public class CategoryServ {
 		
 		return categoryRepo.findById(id).get();
 	}
-	public void save(Category category) {
+	public void save(Category ingrediente) {
 		
-		categoryRepo.save(category);
+		categoryRepo.save(ingrediente);
 	}
 	
-	public void delete(Category category) {
+	public void delete(Category ingrediente) {
 		
-		categoryRepo.delete(category);
+		categoryRepo.delete(ingrediente);
 	}
 }
 

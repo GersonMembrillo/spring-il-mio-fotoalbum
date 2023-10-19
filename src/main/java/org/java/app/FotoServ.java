@@ -24,13 +24,15 @@ public class FotoServ {
 	public List<Foto> findByTitle(String title) {
 
 		return fotoRepo.findByTitleContaining(title);
+		
 	}
+	
 	public Optional<Foto> findById(int id) {
 		
 		return fotoRepo.findById(id);
 	}
 	
-public void deleteFoto(Foto foto) {
+	public void deleteFoto(Foto foto) {
 		
 		fotoRepo.delete(foto);
 	}
