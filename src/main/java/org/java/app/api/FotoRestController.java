@@ -6,9 +6,10 @@ import java.util.stream.Collectors;
 
 import org.java.app.Foto;
 import org.java.app.FotoServ;
+import org.java.app.Message;
+import org.java.app.MessageServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,6 +29,9 @@ public class FotoRestController {
 
 	@Autowired
 	private FotoServ fotoServ;
+	
+	@Autowired
+	private MessageServ messageServ;
 
 	@GetMapping
 	public ResponseEntity<List<FotoDTO>> getFoto(
@@ -41,7 +45,6 @@ public class FotoRestController {
 		else 
 			fotos = fotoServ.findByTitle(query);
 
-		// Nuovo codice
 		List<FotoDTO> fotoDTOs = fotos.stream()
 				.map(foto -> new FotoDTO(foto.getId(), foto.getTitle(), foto.getDescription(), foto.getPhoto(), foto.getVisibility(), foto.getCategories().stream()
 						.map(c -> new CategoryDTO(c.getName()))
@@ -65,7 +68,9 @@ public class FotoRestController {
 
 		return new ResponseEntity<>(optFoto.get(), HttpStatus.OK);
 	}
-
+	
+	// Crea foto ________________________________________
+	
 	@PostMapping
 	public ResponseEntity<Foto> createFoto(
 			@RequestBody FotoDTO fotoDto
@@ -77,6 +82,8 @@ public class FotoRestController {
 		return new ResponseEntity<>(foto, HttpStatus.OK);
 	}
 
+	// Modifica foto ________________________________________
+	
 	@PutMapping("{id}")
 	public ResponseEntity<Foto> updateFoto(
 			@PathVariable int id,
@@ -95,6 +102,8 @@ public class FotoRestController {
 
 		return new ResponseEntity<>(foto, HttpStatus.OK);
 	}
+	
+	// Elimina foto ________________________________________
 
 	@DeleteMapping("{id}")
 	public ResponseEntity<Boolean> deleteFoto(
@@ -111,6 +120,17 @@ public class FotoRestController {
 		fotoServ.deleteFoto(foto);
 
 		return new ResponseEntity<>(true, HttpStatus.OK);
+	}
+	
+	@PostMapping("/store")
+	public ResponseEntity<Integer> save(@RequestBody MessageDTO messageDTO) {
+		System.out.println("nuovo messaggio");
+		Message message = new Message(messageDTO);
+
+		System.out.println("Api Message SAVE:\n" + message);
+		message = messageServ.save(message);
+
+		return new ResponseEntity<>(message.getId(), HttpStatus.OK);
 	}
 
 }

@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
 @Configuration
 public class AuthConfig {
@@ -17,6 +16,7 @@ public class AuthConfig {
 		throws Exception {
 			 
 		http.csrf().disable().authorizeHttpRequests()
+				.requestMatchers("/api/v1.0/**").permitAll()
 //				.requestMatchers("/login*").permitAll()
 		        .requestMatchers("/**").permitAll()
 //		        .requestMatchers("/").hasAnyAuthority("USER", "ADMIN")
