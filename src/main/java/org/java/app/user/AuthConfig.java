@@ -24,6 +24,8 @@ public class AuthConfig {
 //		        .requestMatchers("/**").hasAuthority("ADMIN")
 		        .and().formLogin()
 		        .and().logout();
+		
+		http.cors();
 			
 			return http.build();
 	}

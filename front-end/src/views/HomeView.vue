@@ -44,7 +44,7 @@
 
         <div class="form-group my-3">
           <label for="email">Email:</label>
-          <input type="text" class="form-control" id="email" name="email" placeholder="Inserisci la tua email"
+          <input type="email" class="form-control" id="email" name="email" placeholder="Inserisci la tua email"
             v-model="newMessage.email">
         </div>
 
@@ -70,13 +70,15 @@ const API_URL = 'http://localhost:8080/api/v1.0'
 const search = ref('')
 const fotos = ref(null)
 const emptyMessage = {
-  text: null,
-  email: null
+  name: '',
+  email: '',
+  subject: ''
 };
 const newMessage = ref({ ...emptyMessage });
 
 function storeMessage() {
-  axios.post(API_URL + "/store", newMessage.value)
+  console.log("Form submitted");
+  axios.post(API_URL + "/fotos/store", newMessage.value)
     .then(() => {
       newMessage.value = ref({ ...newMessage });
     })

@@ -23,12 +23,11 @@ public class FotoController {
 	@Autowired 
 	private CategoryServ categoryServ;
 
-	@GetMapping
+	@GetMapping()
 	public String getIndex(@RequestParam(required = false, name = "search") String searchTitle, Model model) {
 
 		System.out.println("search: " + searchTitle);
 
-//		List<Pizza> pizze = pizzaServ.findAll();
 		List<Foto> fotos = searchTitle == null ? fotoServ.findAll() : fotoServ.findByTitle(searchTitle);
 
 		model.addAttribute("fotos", fotos);
