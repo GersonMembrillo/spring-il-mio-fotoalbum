@@ -12,6 +12,8 @@
     <div v-if="!showCreateForm && !showUpdateForm">
       <ul class="list-unstyled">
         <li v-for="foto in fotos" :key="foto.id" class="d-flex justify-content-center">
+
+          <!-- v-if="foto.visibility" indica che in backend visibility= 1 ? display-block : display-none -->
           <div class="card mt-5" style="width: 500px;" v-if="foto.visibility">
             <img :src="foto.photo" alt="Foto" class="card-img-top" />
             <div class="card-body">
@@ -78,6 +80,7 @@ const newMessage = ref({ ...emptyMessage });
 
 function storeMessage() {
   console.log("Form submitted");
+  // qua ci ho perso tempo perchè mi sono scordato il / fotos....
   axios.post(API_URL + "/fotos/store", newMessage.value)
     .then(() => {
       newMessage.value = ref({ ...newMessage });

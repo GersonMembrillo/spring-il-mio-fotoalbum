@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Message {
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
@@ -17,16 +17,18 @@ public class Message {
     private String subject;
 
     public Message() {}
-    public Message(String name, String email, String subject) {
+    public Message(int id, String name, String email, String subject) {
+    	this.id = id;
         this.name = name;
         this.email = email;
         this.subject = subject;
     }
     
     public Message(MessageDTO messageDto) {
-    	setName(messageDto.getName());
-    	setEmail(messageDto.getEmail());
-    	setSubject(messageDto.getSubject());
+    	setId(messageDto.getId());
+        setName(messageDto.getName());
+        setEmail(messageDto.getEmail());
+        setSubject(messageDto.getSubject());
     }
 
     public int getId() {
